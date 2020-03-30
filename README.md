@@ -71,3 +71,15 @@ Boa codificação! ;)
 ## 5. Sugestões de Leitura
 
 * leitura sobre armazenamento de senha
+
+## A fazeres
+* ler sobre a ferramenta emmet
+* ler sobre organização de css e BEM
+* ler sobre organização de arquivos em diretório
+* atalhos mais usados vscode
+* procurar outrar propriedades para input file
+* instalar plugin auto-format
+* instalar plugin de tirar espaços vazios
+* Procurar sobre formatos de case(https://wprock.fr/en/blog/conventions-nommage-programmation/)
+* https://speakerdeck.com/rafaelrinaldi/arquitetura-css
+* Pesquisar BEM
