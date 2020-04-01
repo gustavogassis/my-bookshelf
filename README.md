@@ -73,8 +73,8 @@ Boa codificação! ;)
 * leitura sobre armazenamento de senha
 
 ## A fazeres
-* ler sobre a ferramenta emmet
-* ler sobre organização de css e BEM
+* ler sobre a ferramenta emmet(ok)
+* ler sobre organização de css e BEM(ok)
 * ler sobre organização de arquivos em diretório
 * atalhos mais usados vscode
 * procurar outrar propriedades para input file

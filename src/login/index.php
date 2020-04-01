@@ -14,7 +14,7 @@
                     <h2>Login</h2>
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" placeholder="maria@empresa.com" autofocus />
-                    
+
                     <label for="senha">Senha</label>
                     <input type="password" name="senha" id="senha" />
 

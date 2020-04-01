@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+}
+
+form {
+    width: 100%;
+}
+
+.form {
+    color: #212529;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    width: 50%;
+}
+
+.form__group {
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.form__label {
+    width: 150px;
+}
+
+.form__value {
+    flex-grow: 1;
+}
+
+.form__control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 6px 10px;
+    width: 100%;
+}
+
+.form__control--xxsmall { width: 60px }
+.form__control--xsmall { width: 90px }
+.form__control--small { width: 120px }
+.form__control--medium { width: 150px }
+.form__control--large { width: 200px }
+.form__control--xlarge { width: 260px }
+.form__control--xxlarge { width: 310px }
+
+.form__control--invalid {
+    border: 1px solid #dc3545;
+}
+
+.form__help {
+    margin-top: 5px;
+    color: #888;
+    font-size: 13px;
+    font-style: italic;
+    text-transform: lowercase;
+}
+
+.form__error {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #dc3545;
+    font-weight: bold;
+    display: none;
+}
+
+/* Exemplo para radio
+.radio {}
+.radio__control {}
+.radio__label {}
+.radio__group {}
+*/
+
+.form__action {}
+.form__button {}
+.form__button--primary {}

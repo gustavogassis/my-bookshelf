@@ -3,6 +3,7 @@
     <head>
         <title>My Bookshelf - Meus Livros</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="../../css/main.css" />
     </head>
     <body>
         <div class="main">
@@ -61,17 +62,26 @@
                     </table>
                 </div>
 
-
-                <div>
-                    <ul>
-                        <li><a href="#">Anterior</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">Próximo</a></li>
-                    </ul>
-                </div>
+                <ul class="paginator">
+                    <li class="paginator__item">
+                        <a href="#" class="paginator__link">Anterior</a>
+                    </li>
+                    <li class="paginator__item">
+                        <a href="#" class="paginator__link">1</a>
+                    </li>
+                    <li class="paginator__item">
+                        <a href="#" class="paginator__link paginator__link--active">2</a>
+                    </li>
+                    <li class="paginator__item">
+                        <a href="#" class="paginator__link">3</a>
+                    </li>
+                    <li class="paginator__item">
+                        <a href="#" class="paginator__link">Próximo</a>
+                    </li>
+                </ul>
             </main>
             <footer>
-                    <small>&copy2020 Copyright: mybookshelf.com</small>
+                    <p>&copy2020 Copyright: mybookshelf.com</p>
             </footer>
         </div>
     </body>
