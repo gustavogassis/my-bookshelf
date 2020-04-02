@@ -17,7 +17,7 @@
                 <div>O livro <span>Apanhador no Campo de Centeio</span> foi cadastrado com sucesso!</div>
 
                 <div>
-                    <a href="">Cadastre um novo livro</a>
+                    <a href="create-book.php">Cadastre um novo livro</a>
                     <button>Apagar selecionados</button>
                 </div>
 

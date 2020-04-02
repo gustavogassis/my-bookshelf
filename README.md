@@ -83,3 +83,10 @@ Boa codificação! ;)
 * Procurar sobre formatos de case(https://wprock.fr/en/blog/conventions-nommage-programmation/)
 * https://speakerdeck.com/rafaelrinaldi/arquitetura-css
 * Pesquisar BEM
+* Leitura sobre o conceito mobile-first
+
+* Ajustar tamanhos campos desktop
+* estilizar o input file == bootstrap
+* estilizar o tamanho do action no desktop
+* tornar o header fixo no mobile
+* estilizar o resto das páginas
