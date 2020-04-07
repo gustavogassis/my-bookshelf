@@ -73,7 +73,8 @@
                         </div>
 
                         <div class="form__group">
-                            <label class="form__label" for="capa">Capa</label>
+                            <span class="form__label"> Capa</span>
+                            <label class="form__label-file form__control" for="capa">Selecione um arquivo</label>
                             <div class="form__value form__value-file">
                                 <input type="file" class="form__control form__control-file" name="capa" id="capa">
                                 <div class="form__error">Esse campo é obrigatório.</div>
