@@ -4,30 +4,43 @@
     <head>
         <title>My Bookshelf - Login</title>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../css/reset.css" />
+        <link rel="stylesheet" href="../../css/form.css" />
+        <link rel="stylesheet" href="../../css/button.css" />
+        <link rel="stylesheet" href="../../css/login.css" />
     </head>
     <body>
-        <div class="main">
-            <h1>My Bookshelf</h1>
+        <div class="container">
+            <h1 class="login__logo">My Bookshelf</h1>
 
-            <div>
+            <div class="login">
                 <form action="#" method="post">
-                    <h2>Login</h2>
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" placeholder="maria@empresa.com" autofocus />
+                    <div class="form__group">
+                        <label class="form__label" for="email">Email</label>
+                        <input type="email" class="form__control" name="email" id="email" placeholder="maria@empresa.com" autofocus />
+                        <div class="form__error">Esse campo é obrigatório.</div>
+                    </div>
 
-                    <label for="senha">Senha</label>
-                    <input type="password" name="senha" id="senha" />
 
-                    <div><a href="#">Esqueci minha senha</a></div>
+                    <div class="form__group">
+                        <label class="form__label" for="senha">Senha</label>
+                        <input type="password" class="form__control" name="senha" id="senha" />
+                        <div class="form__error">Esse campo é obrigatório.</div>
+                    </div>
 
-                    <input type="submit" value="Entrar" />
+                    <div class="form__text">
+                        <a href="#" class="form__link">Esqueci minha senha</a>
+                    </div>
+
+                    <input type="submit" class="button button--primary button--block" value="Entrar" />
                 </form>
             </div>
 
-            <div>
-                <p>Ainda não é um usuário?</p>
+            <div class="register">
+                <p class="register__text">Ainda não é um usuário?</p>
 
-                <a href="#">Cadastre-se</a>
+                <a class="button button--block" href="#">Cadastre-se</a>
             </div>
         </div>
     </body>

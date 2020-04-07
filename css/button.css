@@ -1,0 +1,33 @@
+.button {
+    background-color: #fff;
+    border: 1px solid #007bff;
+    border-radius: 10px;
+    color: #007bff;
+    font-size: 15px;
+    font-weight: bold;
+    flex-grow: auto;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.button:not(:last-child) {
+    margin-right: 10px;
+}
+
+.button--primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.button--small {
+    font-size: 13.5px;
+    flex-grow: 1;
+    margin-bottom: 5px;
+    padding: 6px 12px;
+    text-transform: lowercase;
+}
+
+.button--block {
+    margin-top: 15px;
+    width: 100%;
+}

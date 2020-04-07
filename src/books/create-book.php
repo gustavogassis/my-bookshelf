@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../css/reset.css" />
         <link rel="stylesheet" href="../../css/layout.css" />
-        <link rel="stylesheet" href="../../css/form-mobile.css" />
+        <link rel="stylesheet" href="../../css/button.css" />
+        <link rel="stylesheet" href="../../css/form.css" />
     </head>
     <body>
         <div class="container">
             <header class="header">
-                <h1 class="header__logo">My Bookshelf</h1>
+                <h1 class="header__logo"><a href="../dashboard/index.php">My Bookshelf</a></h1>
             </header>
             <main class="content">
                 <h2 class="content__title">Cadastro de Livros</h2>
@@ -73,8 +74,8 @@
 
                         <div class="form__group">
                             <label class="form__label" for="capa">Capa</label>
-                            <div class="form__value">
-                                <input type="file" class="form__control" name="capa" id="capa">
+                            <div class="form__value form__value-file">
+                                <input type="file" class="form__control form__control-file" name="capa" id="capa">
                                 <div class="form__error">Esse campo é obrigatório.</div>
                             </div>
                             <!-- <img src="../icons/paperclip-solid.svg"/> -->
@@ -97,8 +98,8 @@
                         </div>
 
                         <div class="form__action">
-                            <input type="reset" class="form__button" value="Limpar">
-                            <input type="submit" class="form__button form__button--primary" value="Salvar">
+                            <input type="reset" class="button" value="Limpar">
+                            <input type="submit" class="button button--primary" value="Salvar">
                         </div>
                     </form>
                 </div>

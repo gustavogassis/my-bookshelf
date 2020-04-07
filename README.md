@@ -79,14 +79,24 @@ Boa codificação! ;)
 * atalhos mais usados vscode
 * procurar outrar propriedades para input file
 * instalar plugin auto-format
-* instalar plugin de tirar espaços vazios
+* instalar plugin de tirar espaços vazios(ok)
 * Procurar sobre formatos de case(https://wprock.fr/en/blog/conventions-nommage-programmation/)
 * https://speakerdeck.com/rafaelrinaldi/arquitetura-css
-* Pesquisar BEM
-* Leitura sobre o conceito mobile-first
+* Pesquisar BEM(ok)
+* Leitura sobre o conceito mobile-first(ok)
 
 * Ajustar tamanhos campos desktop
-* estilizar o input file == bootstrap
-* estilizar o tamanho do action no desktop
-* tornar o header fixo no mobile
+* estilizar o input file == bootstrap-----------------------------------
+* estilizar o tamanho do action no desktop(ok)
+* tornar o header fixo no mobile(ok)
 * estilizar o resto das páginas
+
+* trocar button para "cadastrar"(ok)
+* Tirar borda (deixar zebrada)(ok)
+* text-align left(ok)
+* Centralizar os campos como column (ex autores)
+* cor campo table mais clara #444(ok)
+* estilizar os actions(ok)
+* transformar content_alert em alert(ok)
+* alert__book -> alert__strong(ok)
+* modificar modifier -> toolbar(ok)

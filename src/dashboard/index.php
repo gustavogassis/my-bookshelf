@@ -3,21 +3,27 @@
     <head>
         <title>My Bookshelf</title>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../css/reset.css" />
+        <link rel="stylesheet" href="../../css/layout.css" />
+        <link rel="stylesheet" href="../../css/dashboard.css" />
     </head>
     <body>
-        <div class="main">
-            <header>
-                <h1>My Bookshelf</h1>
-                <img src="icons/user-solid.svg"/>
+        <div class="container">
+            <header class="header">
+                <h1><a href="#" class="header__logo">My Bookshelf</a></h1>
+                <!-- <img src="icons/user-solid.svg"/> -->
             </header>
-            <main>
-                <h2>Bem Vindo ao My Bookshelf</h2>
+            <main class="content">
+                <h2 class="content__title">Bem Vindo ao My Bookshelf</h2>
 
-                <div><a href="myBooks.php">Acesse seus livros</a></div>
-                <div><a href="cadastroProdutos.php.php">Cadastre novos livros</a></div>
+                <div class="dashboard__actions">
+                    <div class="actions__item"><a href="../books/index.php">Acesse seus livros</a></div>
+                    <div class="actions__item"><a href="../books/create-book.php">Cadastre novos livros</a></div>
+                </div>
             </main>
-            <footer>
-                <p>&copy2020 Copyright: mybookshelf.com</p>
+            <footer class="footer">
+                <p class="footer__text">&copy2020 Copyright: mybookshelf.com</p>
             </footer>
         </div>
     </body>

@@ -1,76 +1,116 @@
-* {
-    box-sizing: border-box;
-}
-
-form {
-    width: 100%;
-}
-
 .form {
     color: #212529;
     display: flex;
+    flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    width: 50%;
+    font-size: 16px;
 }
 
 .form__group {
     display: flex;
+    flex-direction: column;
     margin-bottom: 10px;
-    width: 100%;
 }
 
 .form__label {
-    width: 150px;
+    display: flex;
+    padding: 10px 0;
+    width: auto;
 }
 
 .form__value {
-    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .form__control {
     border: 1px solid #ced4da;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 16px;
     padding: 6px 10px;
     width: 100%;
 }
 
-.form__control--xxsmall { width: 60px }
-.form__control--xsmall { width: 90px }
-.form__control--small { width: 120px }
-.form__control--medium { width: 150px }
-.form__control--large { width: 200px }
-.form__control--xlarge { width: 260px }
-.form__control--xxlarge { width: 310px }
+.form__control-file {
+    background-color: #ccc;
+    opacity: 0;
+}
+
+.form__control--small { width: 20% }
 
 .form__control--invalid {
     border: 1px solid #dc3545;
 }
 
 .form__help {
-    margin-top: 5px;
     color: #888;
     font-size: 13px;
     font-style: italic;
+    margin-top: 5px;
     text-transform: lowercase;
+    padding-left: 3px;
 }
 
 .form__error {
-    margin-top: 5px;
-    font-size: 13px;
     color: #dc3545;
-    font-weight: bold;
     display: none;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 5px;
+    padding-left: 3px;
 }
 
-/* Exemplo para radio
-.radio {}
-.radio__control {}
-.radio__label {}
-.radio__group {}
-*/
+.form__action {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0 10px;
+}
 
-.form__action {}
-.form__button {}
-.form__button--primary {}
+.form__button {
+    background-color: #fff;
+    border: 1px solid #007bff;
+    border-radius: 10px;
+    color: #007bff;
+    font-size: 18px;
+    font-weight: bold;
+    flex-grow: 1;
+    padding: 10px 25px;
+}
+
+.form__button:not(:last-child) {
+    margin-right: 16px;
+}
+
+.form__button--primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+@media (min-width: 450px) {
+    .form__group {
+        flex-direction: row;
+    }
+
+    .form__label {
+        margin-right: 5px;
+        padding: 7px 0;
+        width: 160px;
+    }
+
+    .check__control {
+        margin: 10px 0;
+    }
+}
+
+
+@media (min-width: 600px) {
+    .form {
+        margin: auto 0;
+        width: 600px;
+    }
+
+    .form__control {
+        width: 450px;
+    }
+}

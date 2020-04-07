@@ -1,0 +1,37 @@
+.dashboard__actions {
+    display: flex;
+    flex-direction: column;
+}
+
+.content__title {
+    font-size: 26px;
+}
+
+.actions__item {
+    background-color: rgba(0,123,255, 0.6);
+    border: 1px solid #0c0e96;
+    border-radius: 5px;
+    font-size: 24px;
+    text-transform: uppercase;
+    margin-top: 25px;
+    padding: 60px 40px;
+    text-align: center;
+    width: 100%;
+}
+
+@media (min-width: 450px) {
+    .dashboard__actions {
+        flex-direction: row;
+    }
+
+    .actions__item{
+        margin: 20px;
+    }
+}
+
+@media (min-width: 600px) {
+    .dashboard__actions {
+        width: 580px;
+        margin: auto;
+    }
+}
