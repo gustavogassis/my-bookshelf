@@ -4,7 +4,12 @@
     padding: 0;
 }
 
+body {
+    margin-bottom: 85px;
+}
+
 a {
+    color: #212529;
     text-decoration: none;
 }
 

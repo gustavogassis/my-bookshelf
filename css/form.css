@@ -31,6 +31,18 @@
     width: 100%;
 }
 
+.form__control--small { width: 20% }
+
+.form__control--invalid {
+    border: 1px solid #dc3545;
+}
+
+.form__control-file {
+    display: none;
+    opacity: 0;
+    position: relative;
+}
+
 .form__label-file {
     border: 1px solid #ced4da;
     border-radius: 4px;
@@ -40,27 +52,16 @@
 
 .form__label-file::after {
     background-color: #e9ecef;
+    border-left: #e9ecef;
     border-radius: 0 4px 4px 0;
     bottom: 0;
     content: "Procurar";
     color: #495057;
     line-height: 1.5;
-    padding: 5px;
+    padding: 5px 15px;
     position: absolute;
     right: 0;
     top: 0;
-}
-
-.form__control-file {
-    display: none;
-    opacity: 0;
-    position: relative;
-}
-
-.form__control--small { width: 20% }
-
-.form__control--invalid {
-    border: 1px solid #dc3545;
 }
 
 .form__help {

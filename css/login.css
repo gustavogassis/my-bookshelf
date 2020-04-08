@@ -39,3 +39,12 @@
     font-size: 16px;
     font-weight: bold;
 }
+
+@media (min-width: 600px) {
+    .content {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        width: 580px;
+    }
+}

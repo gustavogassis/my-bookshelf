@@ -12,17 +12,16 @@
         <div class="container">
             <header class="header">
                 <h1><a href="#" class="header__logo">My Bookshelf</a></h1>
-                <!-- <img src="icons/user-solid.svg"/> -->
             </header>
             <main class="content">
-                <h2 class="content__title">Bem Vindo ao My Bookshelf</h2>
+                <h2 class="content__title">Bem Vindo ao My Bookshelf!</h2>
 
-                <div class="dashboard__actions">
-                    <div class="actions__item"><a href="../books/index.php">Acesse seus livros</a></div>
-                    <div class="actions__item"><a href="../books/create-book.php">Cadastre novos livros</a></div>
+                <div class="dashboard">
+                    <a href="../books/index.php" class="dashboard__item">Acesse seus livros</a>
+                    <a href="../books/create-book.php" class="dashboard__item">Cadastre novos livros</a>
                 </div>
             </main>
-            <footer class="footer">
+            <footer class="footer footer__dashboard">
                 <p class="footer__text">&copy2020 Copyright: mybookshelf.com</p>
             </footer>
         </div>
