@@ -1,0 +1,9 @@
+-- Up
+CREATE TABLE generos (
+	id INT AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(30) NOT NULL,
+	PRIMARY KEY(id)
+) DEFAULT CHARSET = utf8;
+
+-- Down
+DROP TABLE generos;

@@ -100,3 +100,42 @@ Boa codificação! ;)
 * transformar content_alert em alert(ok)
 * alert__book -> alert__strong(ok)
 * modificar modifier -> toolbar(ok)
+
+* Procurar padronização de escritra de sql
+   * Nome de tabela(plural ou singular?)
+   * Nome de campo (plural ou singular?)
+   * Palavras chaves(em maiusculo ou minusculo?)
+* Ver diferença datetime e timestamp no sql
+* Ler sobre migration
+  * https://www.sqlstyle.guide/pt-br/
+
+
+1986-02-29
+2002-07-28_153845_create-book-table.sql
+```sql
+select l.titulo, g.nome from livros as l
+join pertence as p
+on l.id = p.id_livro
+join generos as g
+on g.id = p.id_genero;
+
+
+select l.titulo, e.nome from livros as l
+join escrito_por as ep
+on l.id = ep.id_livro
+join escritores as e
+on e.id = ep.id_escritor;
+```
+
+
+## Validação
+* Título - nn ser vazio; ser <=70;(ok)
+* Autor - nn ser vazio; ser <=255;(ok)
+* Páginas - nn ser vazio; ser <=2000; ser int;(ok)
+* Gênero - nn ser vazio; ser <=100; testar se faz parte da lista pré-definida;(ok)
+* Nacional
+* Capa - nn ser vazio; testar extensões; nn pode ser > q um tamanho fixo;(ok)
+* Editora - nn ser vazio; ser <=100;(ok)
+* Descrição - nn ser vazio; ser <=1000(ok)
+
+quebrar em duas funções as parter de validação no validation-data.php

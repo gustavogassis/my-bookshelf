@@ -1,3 +1,7 @@
+body {
+    margin-top: 75px;
+}
+
 .header {
     background-color: #fff;
     border-bottom: 1px solid #eee;
@@ -39,6 +43,10 @@
     color: #155724;
     margin-bottom: 15px;
     padding: 15px;
+}
+
+.alert--error {
+    color: #a51d1d;
 }
 
 .alert__strong {
