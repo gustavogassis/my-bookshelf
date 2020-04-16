@@ -121,10 +121,15 @@ function notEmptyFile($value, $fieldName) {
 function maxSizeFile($value, $limit, $fieldName) {
     $output = ['valid' => true, 'message' => ''];
 
-    if ($value['error'] == 1 || $value['error'] == 2) {
+    if (!notEmptyFile($value, $fieldName)['valid']) {
+        return $output;
+    }
+
+    if ($value['size'] > $limit) {
+        $txtLimit = ($limit / 1000000) . "MB";
         $output = [
             'valid'   => false,
-            'message' => "O arquivo enviado no campo capa <b>$fieldName</b> excede o tamanho máximo de $limit"
+            'message' => "O arquivo enviado no campo capa <b>$fieldName</b> excede o tamanho máximo de $txtLimit"
         ];
         return $output;
     }

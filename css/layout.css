@@ -46,7 +46,9 @@ body {
 }
 
 .alert--error {
-    color: #a51d1d;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
 }
 
 .alert__strong {

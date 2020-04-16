@@ -6,18 +6,20 @@ function selectPermittedGenres($dsn) {
 
     $conn = new PDO($dsn, DB_USER, DB_PASSWORD);
 
-    $sql = "SELECT nome FROM generos";
+    $sql = "SELECT id, nome FROM generos";
     $stmt = $conn->prepare($sql);
     $flag = $stmt->execute();
+    $listIdGenres = [];
     $listGenres = [];
 
     while ($row = $stmt->fetch()) {
-        ['nome' => $nome] = $row;
-        $listGenres[] = $nome;
+        ['id' => $id, 'nome'=> $genre] = $row;
+        $listIdGenres[] = $id;
+        $listGenres[] = ['id' => $id, 'genre' => utf8_encode($genre)];
     }
-    return $listGenres;
+    return ['id' => $listIdGenres, 'genre' => $listGenres];
 }
 
-$listGenres = selectPermittedGenres($dsn);
-
+$listIdGenres = selectPermittedGenres($dsn)['id'];
+$listGenres = selectPermittedGenres($dsn)['genre'];
 ?>

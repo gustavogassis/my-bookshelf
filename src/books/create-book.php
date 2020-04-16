@@ -75,7 +75,8 @@ if (isset($_COOKIE['errors'])){
                             <div class="form__value">
                                 <select name="genero[]" class="form__control" id="genero" multiple size="4">
                                     <?php foreach ($listGenres as $genre) : ?>
-                                        <option value="<?= utf8_encode($genre) ?>"><?= utf8_encode($genre) ?></option>
+                                        <?php $selected = in_array($genre['id'], $formdata['genero']) ? "selected" : "";?>
+                                        <option value="<?= $genre['id'] ?>" <?= $selected ?> ><?= $genre['genre'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <div class="form__help">Pressione Ctrl para selecionar mais de um gênero</div>
@@ -86,7 +87,8 @@ if (isset($_COOKIE['errors'])){
                         <div class="form__group">
                             <label class="form__label" for="nacional">Publicação Nacional?</label>
                             <div class="form__value">
-                                <input type="checkbox" class="form__control check__control" name="nacional" id="nacional" />
+                                <?php $checked = isset($formdata['nacional']) ? 'checked' : '' ?>
+                                <input type="checkbox" class="form__control check__control" name="nacional" id="nacional" <?= $checked ?>  />
                                 <div class="form__error">Esse campo é obrigatório.</div>
                             </div>
                         </div>

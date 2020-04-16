@@ -8,6 +8,4 @@
 
     $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s', DB_HOST, DB_PORT, DB_NAME);
 
-    $table_generos = ['name' => 'generos', 'fields' => ['id', 'nome']];
-
 ?>
