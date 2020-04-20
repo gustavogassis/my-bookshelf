@@ -21,6 +21,16 @@ function validationErrors(array $validation) {
     return $errors;
 }
 
+function validationData() {
+    $errors = isset($_COOKIE["errors"]) ? unserialize($_COOKIE["errors"]) : [];
+    $formdata = isset($_COOKIE["formdata"]) ? unserialize($_COOKIE["formdata"]) : [];
+
+    setcookie("errors", "", time() - 3600);
+    setcookie("formdata", "", time() - 3600);
+
+    return [$formdata, $errors];
+}
+
 function notEmpty($value, $fieldName) {
     $output = ['valid' => true, 'message' => ''];
 
@@ -107,7 +117,7 @@ function inList( $list, $value, $fieldName) {
 function notEmptyFile($value, $fieldName) {
     $output = ['valid' => true, 'message' => ''];
 
-    if ($value['error'] == 4) {
+    if ($value['error'] === 4) {
         $output = [
             'valid'   => false,
             'message' => "É obrigatório o preenchimento do campo <b>$fieldName</b>."
@@ -159,6 +169,12 @@ function validExtension($value, $fieldName) {
     }
 
     return $output;
+}
+
+function redirectError($errors, $input, $location) {
+    setcookie('errors', serialize($errors));
+    setcookie('formdata', serialize($input));
+    header("Location: $location");
 }
 
 ?>

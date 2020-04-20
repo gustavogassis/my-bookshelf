@@ -1,10 +1,10 @@
 <?php
 
-require_once 'db_config.php';
+require_once 'database.php';
 
-function selectPermittedGenres($dsn) {
+function selectPermittedGenres() {
 
-    $conn = new PDO($dsn, DB_USER, DB_PASSWORD);
+    $conn = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 
     $sql = "SELECT id, nome FROM generos";
     $stmt = $conn->prepare($sql);
@@ -20,6 +20,5 @@ function selectPermittedGenres($dsn) {
     return ['id' => $listIdGenres, 'genre' => $listGenres];
 }
 
-$listIdGenres = selectPermittedGenres($dsn)['id'];
-$listGenres = selectPermittedGenres($dsn)['genre'];
+
 ?>

@@ -1,18 +1,14 @@
 <?php
-require_once '../db_config/operations.php';
+require_once "../config/operations.php";
+require_once "../config/database.php";
+require_once "validation.php";
+
+$listIdGenres = selectPermittedGenres()['id'];
+$listGenres = selectPermittedGenres()['genre'];
+
+[$formdata, $errors] = validationData();
 
 
-$errors = 0;
-if (isset($_COOKIE['errors'])){
-    $errors = $_COOKIE['errors'];
-    $errors = explode('|', $errors);
-
-    $formdata = $_COOKIE['formdata'];
-    $formdata = unserialize($formdata);
-
-    setcookie('errors', '', time()-3600);
-    setcookie('formdata', '', time()-3600);
-}
 ?>
 
 <!doctype html>
@@ -34,18 +30,16 @@ if (isset($_COOKIE['errors'])){
             <main class="content">
                 <h2 class="content__title">Cadastro de Livros</h2>
 
-                <?php if ($errors) : ?>
-                    <?php if (count($errors) > 0) : ?>
-                        <ul class="alert alert--error">
-                            <?php foreach ($errors as $error) : ?>
-                                <li><?= $error ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif; ?>
+                <?php if (count($errors) > 0) : ?>
+                    <ul class="alert alert--error">
+                        <?php foreach ($errors as $error) : ?>
+                            <li><?= $error ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 <?php endif; ?>
 
                 <div class="form">
-                    <form action="./validation-data.php" method="post" enctype="multipart/form-data">
+                    <form action="./insert-book.php" method="post" enctype="multipart/form-data">
                         <div class="form__group">
                             <label class="form__label" for="titulo">Título</label>
                             <div class="form__value">
@@ -75,7 +69,7 @@ if (isset($_COOKIE['errors'])){
                             <div class="form__value">
                                 <select name="genero[]" class="form__control" id="genero" multiple size="4">
                                     <?php foreach ($listGenres as $genre) : ?>
-                                        <?php $selected = in_array($genre['id'], $formdata['genero']) ? "selected" : "";?>
+                                        <?php $selected = in_array($genre['id'], $formdata['genero']) ? "selected" : ""; ?>
                                         <option value="<?= $genre['id'] ?>" <?= $selected ?> ><?= $genre['genre'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
@@ -114,7 +108,7 @@ if (isset($_COOKIE['errors'])){
                         <div class="form__group">
                             <label class="form__label" for="descricao">Descrição</label>
                             <div class="form__value">
-                                <textarea name="descricao" class="form__control" id="descricao" cols="30" rows="5" value="<?= $formdata['descricao'] ?? '' ?>"></textarea>
+                                <textarea name="descricao" class="form__control" id="descricao" cols="30" rows="5" ><?= $formdata['descricao'] ?? '' ?></textarea>
                                 <div class="form__error">Esse campo é obrigatório.</div>
                             </div>
                         </div>
