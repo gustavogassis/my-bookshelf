@@ -125,6 +125,17 @@ join escrito_por as ep
 on l.id = ep.id_livro
 join escritores as e
 on e.id = ep.id_escritor;
+
+select l.*, group_concat(g.nome separator ', ') as genero, e.nome as autor from livros as l
+join pertence as p
+on l.id = p.id_livro
+join generos as g
+on g.id = p.id_genero
+join escrito_por as ep
+on l.id = ep.id_livro
+join escritores as e
+on e.id = ep.id_escritor
+group by l.titulo;
 ```
 
 

@@ -17,7 +17,7 @@ function insertBook($data) {
         associateAuthor($idBook, $data['autor']);
 
 
-        return ["success" => true, "message" => sprintf("O livro <b>%s</b> foi cadastrado com sucesso", $data["titulo"])];
+        return ["success" => true, "message" => sprintf("O livro <span class='alert__strong'>%s</span> foi cadastrado com sucesso", $data["titulo"])];
 
     }catch (PDOException $e) {
         return ["success" => false, "message" => "Houve um problema na conexão. Entre em contato com a central de atendimento!"];
@@ -100,5 +100,95 @@ function insertAuthor($author) {
 
     return $idAuthor;
 }
+
+
+function selectBooks() {
+    try {
+        $conn = connect();
+
+        $sql = "SELECT l.*, GROUP_CONCAT(g.nome SEPARATOR ', ') as genero, e.nome as autor
+            FROM livros AS l
+                JOIN pertence AS p
+                ON l.id = p.id_livro
+                JOIN generos AS g
+                ON g.id = p.id_genero
+                JOIN escrito_por AS ep
+                ON l.id = ep.id_livro
+                JOIN escritores AS e
+                ON e.id = ep.id_escritor
+                GROUP BY l.titulo
+                ORDER BY l.data_cadastro DESC;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = [];
+
+        while ($row = $stmt->fetch()) {
+            $result[] = $row;
+        }
+
+        return ["success" => true, "value" => $result];// retirar e fazer else no html
+
+    }catch (PDOException $e) {
+
+    }
+}
+
+function deleteBook($id) {
+    try {
+
+        deleteRowLivros($id);
+        deleteRowPertence($id);
+        deleteRowEscritoPor($id);
+
+    }catch (PDOException $e) {
+
+    }
+}
+
+function deleteRowLivros($id) {
+    try {
+        $conn = connect();
+
+        $sql = "delete from livros where id = $id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+    }catch (PDOException $e) {
+
+    }
+}
+
+function deleteRowPertence($id) {
+    try {
+        $conn = connect();
+
+        $sql = "delete from pertence where id_livro = $id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+    }catch (PDOException $e) {
+
+    }
+}
+
+function deleteRowEscritoPor($id) {
+    try {
+        $conn = connect();
+
+        $sql = "delete from escrito_por where id_livro = $id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        return ["success" => true, "value" => $result];// retirar e fazer else no html
+
+    }catch (PDOException $e) {
+
+    }
+}
+
 
 ?>

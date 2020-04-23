@@ -41,10 +41,10 @@
 
     $input["paginas"] = intval($input["paginas"]);
     $input["nacional"] = isset($input["nacional"]) ? "S" : "N";
-    $input["capa"] = sprintf("../files/cover/%s", $_FILES["capa"]["name"]);
+    $input["capa"] = sprintf("../../files/cover/%s", $_FILES["capa"]["name"]);
     $input["data_cadastro"] = date("Y-m-d H:i:s");
 
-    //move_uploaded_file($_FILES["capa"]["tmp_name"], "../files/cover/$filename");
+    move_uploaded_file($_FILES["capa"]["tmp_name"], $input['capa']);
 
     $insert = insertBook($input);
 
@@ -56,12 +56,6 @@
     // 7. o livro foi inserido na base de dados com sucesso e redireciona-se para
     // a página de listagem com a mensagem de feedback de sucesso.
 
-    redirect('index.php', $insert);
-
-    function redirect($page, $message)
-    {
-        setcookie('message', serialize($message));
-        header("Location: $page");
-    }
+    redirect('index.php', $insert['message']);
 
 ?>

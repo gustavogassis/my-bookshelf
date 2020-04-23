@@ -171,6 +171,11 @@ function validExtension($value, $fieldName) {
     return $output;
 }
 
+function redirect($page, $message) {
+    setcookie('message', serialize($message));
+    header("Location: $page");
+}
+
 function redirectError($errors, $input, $location) {
     setcookie('errors', serialize($errors));
     setcookie('formdata', serialize($input));
