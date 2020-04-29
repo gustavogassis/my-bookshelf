@@ -2,6 +2,10 @@ body {
     margin-top: 75px;
 }
 
+.hidden {
+    display: none;
+}
+
 .header {
     background-color: #fff;
     border-bottom: 1px solid #eee;
@@ -58,12 +62,14 @@ body {
 
 .toolbar {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    /* justify-content: space-between; */
     margin-bottom: 15px;
 }
 
 .toolbar__item {
     flex-basis: 100%;
+    margin-bottom: 10px;
 }
 
 .footer {
@@ -85,4 +91,17 @@ body {
 
 .footer__text {
     text-align: center;
+}
+
+@media (min-width: 780px) {
+    .toolbar {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 15px;
+    }
+
+    .toolbar__item {
+        flex-basis: 50%;
+    }
+
 }

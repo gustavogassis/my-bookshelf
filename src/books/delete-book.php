@@ -4,10 +4,14 @@
     require_once "validation.php";
 
     $input = $_POST;
-    deleteBook($input['id']);
-    unlink($input["capa"]);
 
-    $message = sprintf("O livro %s foi apagado com sucesso", $input['titulo']);
+    $book = selectBookById($input['id']);
+
+    deleteBook($book['id']);
+    unlink($book["capa"]);//mandar caso houver erro
+
+    $message = [];
+    $message[] = sprintf("O livro <b>%s</b> foi apagado com sucesso", $book['titulo']);
 
     redirect("index.php", $message);
 

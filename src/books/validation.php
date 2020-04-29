@@ -23,12 +23,12 @@ function validationErrors(array $validation) {
 
 function validationData() {
     $errors = isset($_COOKIE["errors"]) ? unserialize($_COOKIE["errors"]) : [];
-    $formdata = isset($_COOKIE["formdata"]) ? unserialize($_COOKIE["formdata"]) : [];
+    $book = isset($_COOKIE["book"]) ? unserialize($_COOKIE["book"]) : [];
 
     setcookie("errors", "", time() - 3600);
-    setcookie("formdata", "", time() - 3600);
+    setcookie("book", "", time() - 3600);
 
-    return [$formdata, $errors];
+    return [$book, $errors];
 }
 
 function notEmpty($value, $fieldName) {
@@ -178,8 +178,12 @@ function redirect($page, $message) {
 
 function redirectError($errors, $input, $location) {
     setcookie('errors', serialize($errors));
-    setcookie('formdata', serialize($input));
+    setcookie('book', serialize($input));
     header("Location: $location");
 }
 
+function redirectView($input, $location) {
+    setcookie('data', serialize($input));
+    header("Location: $location");
+}
 ?>

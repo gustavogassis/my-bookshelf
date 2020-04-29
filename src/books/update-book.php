@@ -4,11 +4,18 @@
     require_once "validation.php";
     require_once "database-book.php";
 
-    date_default_timezone_set("America/Sao_Paulo");
-
     $input = $_POST;
 
     $validation = [];
+
+    // $file = notEmptyFile($_FILES["capa"], "capa");
+
+    // if ($file["valid"]) {
+    //     $validation[] = validExtension($_FILES["capa"], "capa");
+    //     $validation[] = maxSizeFile($_FILES["capa"], 5000000, "capa");
+    //     $input["capa"] = sprintf("../../files/cover/%s", $_FILES["capa"]["name"]);
+    // }
+
     $validation[] = notEmpty($input["titulo"], "título");
     $validation[] = maxSize($input["titulo"], 70, "título");
 
@@ -23,10 +30,6 @@
     $validation[] = maxSize($input["genero"], 100, "gênero");
     $validation[] = inList(selectPermittedGenres()["id"], $input["genero"], "gênero");
 
-    $validation[] = notEmptyFile($_FILES["capa"], "capa");
-    $validation[] = validExtension($_FILES["capa"], "capa");
-    $validation[] = maxSizeFile($_FILES["capa"], 5000000, "capa");
-
     $validation[] = notEmpty($input["editora"], "editora");
     $validation[] = maxSize($input["editora"], 100, "editora");
 
@@ -34,28 +37,30 @@
     $validation[] = maxSize($input["descricao"], 1000, "descrição");
 
     if (validationFails($validation)) {
-        redirectError(validationErrors($validation), $input, "create-book.php");
+        redirectError(validationErrors($validation), $input, "edit-book.php");
         exit;
     }
 
 
+    deleteBook($input['id']);
+
+
     $input["paginas"] = intval($input["paginas"]);
     $input["nacional"] = isset($input["nacional"]) ? "S" : "N";
-    $input["capa"] = sprintf("../../files/cover/%s", $_FILES["capa"]["name"]);
     $input["data_cadastro"] = date("Y-m-d H:i:s");
-
-    move_uploaded_file($_FILES["capa"]["tmp_name"], $input['capa']);
 
     $insert = insertBook($input);
 
     if (! $insert['success']) {
-        redirectError([$insert["message"]], $input, 'create-book.php');
+        redirectError([$insert["message"]], $input, 'index.php');
         exit;
     }
 
     // 7. o livro foi inserido na base de dados com sucesso e redireciona-se para
     // a página de listagem com a mensagem de feedback de sucesso.
+    $message = [];
+    $message[] = sprintf("O livro <b>%s</b> foi atualizado com sucesso", $input['titulo']);
+    redirect('index.php', $message);
 
-    redirect('index.php', [$insert['message']]);
 
 ?>

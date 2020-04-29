@@ -17,10 +17,16 @@ function insertBook($data) {
         associateAuthor($idBook, $data['autor']);
 
 
-        return ["success" => true, "message" => sprintf("O livro <span class='alert__strong'>%s</span> foi cadastrado com sucesso", $data["titulo"])];
+        return [
+            "success" => true,
+            "message" => sprintf("O livro <span class='alert__strong'>%s</span> foi cadastrado com sucesso", $data["titulo"])
+        ];
 
     }catch (PDOException $e) {
-        return ["success" => false, "message" => "Houve um problema na conexão. Entre em contato com a central de atendimento!"];
+        return [
+            "success" => false,
+            "message" => "Houve um problema na conexão. Entre em contato com a central de atendimento!"
+        ];
     }
 }
 
@@ -127,9 +133,58 @@ function selectBooks() {
             $result[] = $row;
         }
 
-        return ["success" => true, "value" => $result];// retirar e fazer else no html
+        return $result;
 
-    }catch (PDOException $e) {
+    } catch (PDOException $e) {
+
+    }
+}
+
+function selectBookById($id) {
+    try {
+        $conn = connect();
+
+        $sql = "SELECT l.*, GROUP_CONCAT(g.nome SEPARATOR ', ') as genero, e.nome as autor
+            FROM livros AS l
+                JOIN pertence AS p
+                ON l.id = p.id_livro
+                JOIN generos AS g
+                ON g.id = p.id_genero
+                JOIN escrito_por AS ep
+                ON l.id = ep.id_livro
+                JOIN escritores AS e
+                ON e.id = ep.id_escritor
+            WHERE l.id = $id
+                GROUP BY l.titulo;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch();
+
+        return $result;
+
+    } catch (PDOException $e) {
+
+    }
+}
+
+function selectIdGenresOfBook($idBook) {
+    try {
+        $conn = connect();
+
+        $sql = "SELECT p.id_genero
+            FROM pertence AS p
+                JOIN generos as g
+                ON p.id_genero = g.id
+            WHERE p.id_livro = $idBook;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        return $result;
+
+    } catch (PDOException $e) {
 
     }
 }
@@ -147,7 +202,7 @@ function deleteBook($id) {
 }
 
 function deleteRowLivros($id) {
-    try {
+    try {// TIRAR try catch, sql em maiusculo
         $conn = connect();
 
         $sql = "delete from livros where id = $id;";

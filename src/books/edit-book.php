@@ -1,18 +1,23 @@
 <?php
-require_once "./operations.php";
-require_once "validation.php";
 
-$listGenres = selectPermittedGenres()['genre'];
+    require_once "database-book.php";
+    require_once "operations.php";
+    require_once "validation.php";
 
-[$book, $errors] = validationData();
+    $listGenres = selectPermittedGenres()['genre'];
 
-
+    [$book, $errors] = validationData();
+    // print_r($book);
+    if (isset($_POST["id"])) {
+        $book = selectBookById($_POST["id"]);
+        $book["genero"] = array_column(selectIdGenresOfBook($_POST["id"]), 'id_genero');
+    }
 ?>
 
 <!doctype html>
 <html lang="pt-br">
     <head>
-        <title>My Bookshelf - Cadastro de Livros</title>
+        <title>My Bookshelf - Edição de Livros</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../css/reset.css" />
@@ -26,7 +31,7 @@ $listGenres = selectPermittedGenres()['genre'];
                 <h1 class="header__logo"><a href="../dashboard/index.php">My Bookshelf</a></h1>
             </header>
             <main class="content">
-                <h2 class="content__title">Cadastro de Livros</h2>
+                <h2 class="content__title">Edição de Livros</h2>
 
                 <?php if (count($errors) > 0) : ?>
                     <ul class="alert alert--error">
@@ -37,7 +42,10 @@ $listGenres = selectPermittedGenres()['genre'];
                 <?php endif; ?>
 
                 <div class="form">
-                    <form action="./insert-book.php" method="post" enctype="multipart/form-data">
+                    <form action="./update-book.php" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="<?= $book['id'] ?? '' ?>" />
+                        <input type="hidden" name="capa" value="<?= $book['capa'] ?>" />
+
                         <div class="form__group">
                             <label class="form__label" for="titulo">Título</label>
                             <div class="form__value">
@@ -81,14 +89,6 @@ $listGenres = selectPermittedGenres()['genre'];
                         </div>
 
                         <div class="form__group">
-                            <span class="form__label">Capa</span>
-                            <div class="form__value">
-                                <label class="form__label-file form__control" for="capa">Selecione um arquivo</label>
-                                <input type="file" class="form__control form__control-file" name="capa" id="capa">
-                            </div>
-                        </div>
-
-                        <div class="form__group">
                             <label class="form__label" for="editora">Editora</label>
                             <div class="form__value">
                                 <input type="text" class="form__control" name="editora" id="editora" value="<?= $book['editora'] ?? '' ?>" />
@@ -104,7 +104,7 @@ $listGenres = selectPermittedGenres()['genre'];
 
                         <div class="form__action">
                             <input type="reset" class="button" value="Limpar">
-                            <input type="submit" class="button button--primary" value="Salvar">
+                            <input type="submit" class="button button--primary" value="Atualizar">
                         </div>
                     </form>
                 </div>

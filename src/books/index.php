@@ -1,13 +1,13 @@
 <?php
 require_once "database-book.php";
 
-$message = 0;
+$messages = [];
 if (isset($_COOKIE["message"])) {
-    $message = unserialize($_COOKIE["message"]);
+    $messages = unserialize($_COOKIE["message"]);
     setcookie("message", "", time() - 3600);
 }
 
-$result = selectBooks()["value"];
+$result = selectBooks();
 
 ?>
 
@@ -31,13 +31,20 @@ $result = selectBooks()["value"];
             <main class="content">
                 <h2 class="content__title">Meus Livros</h2>
 
-                <?php if ($message) : ?>
-                    <div class="alert"><?= $message ?></div>
+                <?php if (count($messages) > 0) : ?>
+                    <ul class="alert">
+                        <?php foreach ($messages as $message) : ?>
+                            <li><?= $message ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 <?php endif; ?>
 
                 <div class="toolbar">
                     <a class="button button--primary toolbar__item" href="create-book.php">Cadastrar</a>
-                    <button class="button toolbar__item">Apagar selecionados</button>
+                    <form action="./delete-all-books.php" method="post" class="toolbar__item" style="width: 100%;">
+                        <button class="button button--full hidden" id="delete-all">Apagar selecionados</button>
+                        <input type="hidden" style="display:none;" name="idLivros" id="idLivros">
+                    </form>
                 </div>
 
                 <?php if ($result) :?>
@@ -45,7 +52,7 @@ $result = selectBooks()["value"];
                         <thead class="table__header">
                             <tr>
                                 <th class="table__data-header">
-                                    <input type="checkbox" id="select-all" />
+                                    <input type="checkbox"  id="select-all" />
                                 </th>
                                 <th class="table__data-header">Capa</th>
                                 <th class="table__data-header">Título</th>
@@ -62,7 +69,7 @@ $result = selectBooks()["value"];
                     <?php foreach ($result as $row) : ?>
                             <tr class="table__row">
                                 <td data-th="Selecione" class="table__data">
-                                    <input type="checkbox" id="<?= $row["id"] ?>" />
+                                    <input type="checkbox" class="checkDelete" id="<?= $row["id"] ?>" />
                                 </td>
                                 <td data-th="Capa" class="table__data">
                                     <img src="<?= $row["capa"] ?>" class="table__img">
@@ -75,12 +82,18 @@ $result = selectBooks()["value"];
                                 <td data-th="Nacional" class="table__data"><?= $row["nacional"] == "S" ? "Sim" : "Não" ?></td>
                                 <td data-th="Descrição" class="table__data"><?= substr($row["descricao"], 0, 50) . "..." ?></td>
                                 <td data-th="Ações" class="table__data  actions">
-                                    <button class="button button--small">Visualizar</button>
-                                    <button class="button button--small">Editar</button>
+                                    <form action="./view-book.php" method="post">
+                                        <input type="hidden" name="id" value="<?= $row["id"] ?>" />
+                                        <button class="button button--small" type="submit">Visualizar</button>
+                                    </form>
+
+                                    <form action="./edit-book.php" method="post">
+                                        <input type="hidden" name="id" value="<?= $row["id"] ?>" />
+                                        <button class="button button--small">Editar</button>
+                                    </form>
+
                                     <form action="./delete-book.php" method="post">
                                         <input type="hidden" name="id" value="<?= $row["id"] ?>" />
-                                        <input type="hidden" name="titulo" value="<?= $row["titulo"] ?>" />
-                                        <input type="hidden" name="capa" value="<?= $row["capa"] ?>" />
                                         <button class="button button--small" type="submit">Remover</button>
                                     </form>
                                 </td>
@@ -114,5 +127,6 @@ $result = selectBooks()["value"];
                     <p class="footer__text">&copy2020 Copyright: mybookshelf.com</p>
             </footer>
         </div>
+        <script src="../../js/delete-all.js" ></script>
     </body>
 </html>
