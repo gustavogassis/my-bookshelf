@@ -1,6 +1,5 @@
 <?php
 
-    require_once "operations.php";
     require_once "validation.php";
     require_once "database-book.php";
 
@@ -44,18 +43,18 @@
     $input["capa"] = sprintf("../../files/cover/%s", $_FILES["capa"]["name"]);
     $input["data_cadastro"] = date("Y-m-d H:i:s");
 
-    move_uploaded_file($_FILES["capa"]["tmp_name"], $input['capa']);
+    move_uploaded_file($_FILES["capa"]["tmp_name"], $input["capa"]);
 
     $insert = insertBook($input);
 
-    if (! $insert['success']) {
-        redirectError([$insert["message"]], $input, 'create-book.php');
+    if (! $insert["success"]) {
+        redirectError([$insert["message"]], $input, "create-book.php");
         exit;
     }
 
     // 7. o livro foi inserido na base de dados com sucesso e redireciona-se para
     // a página de listagem com a mensagem de feedback de sucesso.
 
-    redirect('index.php', [$insert['message']]);
+    redirect("index.php", [$insert["message"]]);
 
 ?>

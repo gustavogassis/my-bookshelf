@@ -4,7 +4,6 @@
     require_once "validation.php";
 
     $data = selectBookById($_POST["id"]);
-// mudar title e content__title
 ?>
 
 <!doctype html>

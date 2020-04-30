@@ -45,6 +45,7 @@
 @media (min-width: 780px) {
   .table {
     margin-bottom: 20px;
+    width: 100%;
   }
 
   .table__data {

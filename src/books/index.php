@@ -7,7 +7,25 @@ if (isset($_COOKIE["message"])) {
     setcookie("message", "", time() - 3600);
 }
 
-$result = selectBooks();
+$page = $_GET["page"] ?? 1;
+$limit = $_GET["limit"] ?? 7;
+$total = selectCountBooks();
+$offset = ($page - 1) * $limit;
+
+
+$numberOfPages = ceil($total / $limit);
+
+$prevPage = $page == 1 ? 1 : $page - 1;
+$nextPage = $page == $numberOfPages ? $page : $page + 1;
+
+function urlPage($page, $limit) {
+    $url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['SCRIPT_NAME']}";
+
+    return sprintf("%s?page=%s&limit=%s", $url, $page, $limit);
+}
+
+
+$result = selectBooks($offset, $limit);
 
 ?>
 
@@ -41,7 +59,7 @@ $result = selectBooks();
 
                 <div class="toolbar">
                     <a class="button button--primary toolbar__item" href="create-book.php">Cadastrar</a>
-                    <form action="./delete-all-books.php" method="post" class="toolbar__item" style="width: 100%;">
+                    <form action="./delete-all-books.php" method="post" class="toolbar__item">
                         <button class="button button--full hidden" id="delete-all">Apagar selecionados</button>
                         <input type="hidden" style="display:none;" name="idLivros" id="idLivros">
                     </form>
@@ -69,7 +87,7 @@ $result = selectBooks();
                     <?php foreach ($result as $row) : ?>
                             <tr class="table__row">
                                 <td data-th="Selecione" class="table__data">
-                                    <input type="checkbox" class="checkDelete" id="<?= $row["id"] ?>" />
+                                    <input type="checkbox" class="checkDelete" id="<?= $row['id'] ?>" />
                                 </td>
                                 <td data-th="Capa" class="table__data">
                                     <img src="<?= $row["capa"] ?>" class="table__img">
@@ -107,19 +125,21 @@ $result = selectBooks();
 
                 <ul class="paginator">
                     <li class="paginator__item">
-                        <a href="#" class="paginator__link">Anterior</a>
+                        <a href="<?= urlPage($prevPage, $limit); ?>" class="paginator__link">Anterior</a>
                     </li>
+                    <?php if ($numberOfPages) : ?>
+                        <?php foreach (range(1, $numberOfPages) as $pageNumber) : ?>
+                            <li class="paginator__item">
+                                <a href="<?= urlPage($pageNumber, $limit); ?>" class="paginator__link <?= $page == $pageNumber ? 'paginator__link--active' : ''; ?> "><?= $pageNumber; ?></a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <li class="paginator__item">
+                            <a href="<?= urlPage($page, $limit); ?>" class="paginator__link paginator__link--active"><?= $page; ?></a>
+                        </li>
+                    <?php endif; ?>
                     <li class="paginator__item">
-                        <a href="#" class="paginator__link">1</a>
-                    </li>
-                    <li class="paginator__item">
-                        <a href="#" class="paginator__link paginator__link--active">2</a>
-                    </li>
-                    <li class="paginator__item">
-                        <a href="#" class="paginator__link">3</a>
-                    </li>
-                    <li class="paginator__item">
-                        <a href="#" class="paginator__link">Próximo</a>
+                        <a href="<?= urlPage($nextPage, $limit); ?>" class="paginator__link">Próximo</a>
                     </li>
                 </ul>
             </main>

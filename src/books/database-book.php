@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/database.php';
+require_once "../config/database.php";
 
 function connect() {
     $conection = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
@@ -12,9 +12,9 @@ function insertBook($data) {
 
         $idBook = insertTableBook($data);
 
-        associateGenres($data['genero'], $idBook);
+        associateGenres($data["genero"], $idBook);
 
-        associateAuthor($idBook, $data['autor']);
+        associateAuthor($idBook, $data["autor"]);
 
 
         return [
@@ -37,14 +37,14 @@ function insertTableBook($data) {
     VALUES (:title, :cover, :descriptions, :pages, :nacional, :publisher, :dateRegister, :dateUpdate)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bindValue(':title', $data["titulo"], PDO::PARAM_STR);
-    $stmt->bindValue(':cover', $data["capa"], PDO::PARAM_STR);
-    $stmt->bindValue(':descriptions', $data["descricao"], PDO::PARAM_STR);
-    $stmt->bindValue(':pages', $data["paginas"], PDO::PARAM_INT);
-    $stmt->bindValue(':nacional', $data["nacional"], PDO::PARAM_STR);
-    $stmt->bindValue(':publisher', $data["editora"], PDO::PARAM_STR);
-    $stmt->bindValue(':dateRegister', $data["data_cadastro"], PDO::PARAM_STR);
-    $stmt->bindValue(':dateUpdate', $data["data_cadastro"], PDO::PARAM_STR);
+    $stmt->bindValue(":title", $data["titulo"], PDO::PARAM_STR);
+    $stmt->bindValue(":cover", $data["capa"], PDO::PARAM_STR);
+    $stmt->bindValue(":descriptions", $data["descricao"], PDO::PARAM_STR);
+    $stmt->bindValue(":pages", $data["paginas"], PDO::PARAM_INT);
+    $stmt->bindValue(":nacional", $data["nacional"], PDO::PARAM_STR);
+    $stmt->bindValue(":publisher", $data["editora"], PDO::PARAM_STR);
+    $stmt->bindValue(":dateRegister", $data["data_cadastro"], PDO::PARAM_STR);
+    $stmt->bindValue(":dateUpdate", $data["data_cadastro"], PDO::PARAM_STR);
 
     $flag = $stmt->execute();
 
@@ -60,8 +60,8 @@ function associateGenres($idGenres, $idBook) {
         $sql = "INSERT INTO pertence (id_livro, id_genero) VALUES (:id_livro, :idGenre)";
 
         $stmt = $conn->prepare($sql);
-        $stmt->bindValue(':id_livro', $idBook, PDO::PARAM_INT);
-        $stmt->bindValue(':idGenre', $idGenre, PDO::PARAM_INT);
+        $stmt->bindValue(":id_livro", $idBook, PDO::PARAM_INT);
+        $stmt->bindValue(":idGenre", $idGenre, PDO::PARAM_INT);
         $stmt->execute();
     }
 }
@@ -80,8 +80,8 @@ function associateAuthor($idBook, $author) {
     // 3. associa com o livro
     $sql = "INSERT INTO escrito_por (id_livro, id_escritor) VALUES (:idBook, :idAuthor)";
     $stmt = $conn->prepare($sql);
-    $stmt->bindValue(':idBook', $idBook, PDO::PARAM_INT);
-    $stmt->bindValue(':idAuthor', $idAuthor, PDO::PARAM_INT);
+    $stmt->bindValue(":idBook", $idBook, PDO::PARAM_INT);
+    $stmt->bindValue(":idAuthor", $idAuthor, PDO::PARAM_INT);
     $stmt->execute();
 }
 
@@ -107,142 +107,135 @@ function insertAuthor($author) {
     return $idAuthor;
 }
 
+function selectCountBooks() {
+    $conn = connect();
 
-function selectBooks() {
-    try {
-        $conn = connect();
-
-        $sql = "SELECT l.*, GROUP_CONCAT(g.nome SEPARATOR ', ') as genero, e.nome as autor
-            FROM livros AS l
-                JOIN pertence AS p
-                ON l.id = p.id_livro
-                JOIN generos AS g
-                ON g.id = p.id_genero
-                JOIN escrito_por AS ep
-                ON l.id = ep.id_livro
-                JOIN escritores AS e
-                ON e.id = ep.id_escritor
-                GROUP BY l.titulo
-                ORDER BY l.data_cadastro DESC;";
-
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $result = [];
-
-        while ($row = $stmt->fetch()) {
-            $result[] = $row;
-        }
-
-        return $result;
-
-    } catch (PDOException $e) {
-
-    }
-}
-
-function selectBookById($id) {
-    try {
-        $conn = connect();
-
-        $sql = "SELECT l.*, GROUP_CONCAT(g.nome SEPARATOR ', ') as genero, e.nome as autor
-            FROM livros AS l
-                JOIN pertence AS p
-                ON l.id = p.id_livro
-                JOIN generos AS g
-                ON g.id = p.id_genero
-                JOIN escrito_por AS ep
-                ON l.id = ep.id_livro
-                JOIN escritores AS e
-                ON e.id = ep.id_escritor
-            WHERE l.id = $id
-                GROUP BY l.titulo;";
+        $sql = "SELECT COUNT(*) FROM livros;";
 
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch();
 
-        return $result;
+        return intval($result[0]);
+}
 
-    } catch (PDOException $e) {
+function selectBooks($offset, $limit) {
+    $conn = connect();
 
+    $sql = "SELECT l.*, GROUP_CONCAT(g.nome SEPARATOR ', ') as genero, e.nome as autor
+        FROM livros AS l
+            JOIN pertence AS p
+            ON l.id = p.id_livro
+            JOIN generos AS g
+            ON g.id = p.id_genero
+            JOIN escrito_por AS ep
+            ON l.id = ep.id_livro
+            JOIN escritores AS e
+            ON e.id = ep.id_escritor
+            GROUP BY l.id
+            ORDER BY l.data_cadastro DESC
+            LIMIT $offset, $limit;";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = [];
+
+    while ($row = $stmt->fetch()) {
+        $result[] = $row;
     }
+
+    return $result;
+}
+
+function selectBookById($id) {
+    $conn = connect();
+
+    $sql = "SELECT l.*, GROUP_CONCAT(g.nome SEPARATOR ', ') as genero, e.nome as autor
+        FROM livros AS l
+            JOIN pertence AS p
+            ON l.id = p.id_livro
+            JOIN generos AS g
+            ON g.id = p.id_genero
+            JOIN escrito_por AS ep
+            ON l.id = ep.id_livro
+            JOIN escritores AS e
+            ON e.id = ep.id_escritor
+        WHERE l.id = $id
+            GROUP BY l.titulo;";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetch();
+
+    return $result;
 }
 
 function selectIdGenresOfBook($idBook) {
-    try {
-        $conn = connect();
+    $conn = connect();
 
-        $sql = "SELECT p.id_genero
-            FROM pertence AS p
-                JOIN generos as g
-                ON p.id_genero = g.id
-            WHERE p.id_livro = $idBook;";
+    $sql = "SELECT p.id_genero
+        FROM pertence AS p
+            JOIN generos as g
+            ON p.id_genero = g.id
+        WHERE p.id_livro = $idBook;";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
 
-        return $result;
+    return $result;
+}
 
-    } catch (PDOException $e) {
+function selectPermittedGenres() {
 
+    $conn = connect();
+
+    $sql = "SELECT id, nome FROM generos";
+    $stmt = $conn->prepare($sql);
+    $flag = $stmt->execute();
+    $listIdGenres = [];
+    $listGenres = [];
+
+    while ($row = $stmt->fetch()) {
+        ["id" => $id, "nome"=> $genre] = $row;
+        $listIdGenres[] = $id;
+        $listGenres[] = ["id" => $id, "genre" => utf8_encode($genre)];
     }
+    return ["id" => $listIdGenres, "genre" => $listGenres];
 }
 
 function deleteBook($id) {
-    try {
 
-        deleteRowLivros($id);
-        deleteRowPertence($id);
-        deleteRowEscritoPor($id);
-
-    }catch (PDOException $e) {
-
-    }
+    deleteRowLivros($id);
+    deleteRowPertence($id);
+    deleteRowEscritoPor($id);
 }
 
 function deleteRowLivros($id) {
-    try {// TIRAR try catch, sql em maiusculo
-        $conn = connect();
+   $conn = connect();
 
-        $sql = "delete from livros where id = $id;";
+    $sql = "DELETE FROM livros WHERE id = $id;";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-
-    }catch (PDOException $e) {
-
-    }
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 }
 
 function deleteRowPertence($id) {
-    try {
-        $conn = connect();
+    $conn = connect();
 
-        $sql = "delete from pertence where id_livro = $id;";
+    $sql = "DELETE FROM pertence WHERE id_livro = $id;";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-
-    }catch (PDOException $e) {
-
-    }
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 }
 
 function deleteRowEscritoPor($id) {
-    try {
-        $conn = connect();
+    $conn = connect();
 
-        $sql = "delete from escrito_por where id_livro = $id;";
+    $sql = "DELETE FROM escrito_por WHERE id_livro = $id;";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-
-        return ["success" => true, "value" => $result];// retirar e fazer else no html
-
-    }catch (PDOException $e) {
-
-    }
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 }
 
 

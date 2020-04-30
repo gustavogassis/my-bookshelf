@@ -1,16 +1,15 @@
 <?php
 
     require_once "database-book.php";
-    require_once "operations.php";
     require_once "validation.php";
 
-    $listGenres = selectPermittedGenres()['genre'];
+    $listGenres = selectPermittedGenres()["genre"];
 
     [$book, $errors] = validationData();
     // print_r($book);
     if (isset($_POST["id"])) {
         $book = selectBookById($_POST["id"]);
-        $book["genero"] = array_column(selectIdGenresOfBook($_POST["id"]), 'id_genero');
+        $book["genero"] = array_column(selectIdGenresOfBook($_POST["id"]), "id_genero");
     }
 ?>
 
@@ -72,8 +71,8 @@
                             <div class="form__value">
                                 <select name="genero[]" class="form__control" id="genero" multiple size="4">
                                     <?php foreach ($listGenres as $genre) : ?>
-                                        <?php $selected = in_array($genre['id'], $book['genero']) ? "selected" : ""; ?>
-                                        <option value="<?= $genre['id'] ?>" <?= $selected ?> ><?= $genre['genre'] ?></option>
+                                        <?php $selected = in_array($genre["id"], $book["genero"]) ? "selected" : ""; ?>
+                                        <option value="<?= $genre['id'] ?>" <?= $selected ?> ><?= $genre["genre"] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <div class="form__help">Pressione Ctrl para selecionar mais de um gênero</div>
@@ -83,7 +82,7 @@
                         <div class="form__group">
                             <label class="form__label" for="nacional">Publicação Nacional?</label>
                             <div class="form__value">
-                                <?php $checked = isset($book['nacional']) ? 'checked' : '' ?>
+                                <?php $checked = isset($book["nacional"]) ? "checked" : "" ?>
                                 <input type="checkbox" class="form__control check__control" name="nacional" id="nacional" <?= $checked ?>  />
                             </div>
                         </div>
@@ -98,7 +97,7 @@
                         <div class="form__group">
                             <label class="form__label" for="descricao">Descrição</label>
                             <div class="form__value">
-                                <textarea name="descricao" class="form__control" id="descricao" cols="30" rows="5" ><?= $book['descricao'] ?? '' ?></textarea>
+                                <textarea name="descricao" class="form__control" id="descricao" cols="30" rows="5" ><?= $book["descricao"] ?? "" ?></textarea>
                             </div>
                         </div>
 
