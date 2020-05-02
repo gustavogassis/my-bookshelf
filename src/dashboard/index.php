@@ -1,3 +1,13 @@
+<?php
+
+require_once "../login/check-login.php";
+
+isLogged();
+
+$username = $_SESSION["user"];
+
+?>
+
 <!doctype html>
 <html lang="pt-br">
     <head>
@@ -5,6 +15,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../css/reset.css" />
+        <link rel="stylesheet" href="../../css/button.css" />
         <link rel="stylesheet" href="../../css/layout.css" />
         <link rel="stylesheet" href="../../css/dashboard.css" />
     </head>
@@ -12,9 +23,12 @@
         <div class="container">
             <header class="header">
                 <h1><a href="#" class="header__logo">My Bookshelf</a></h1>
+                <form action="../login/logout.php" method="post">
+                    <button class="button header__button">Logout</button>
+                </form>
             </header>
             <main class="content">
-                <h2 class="content__title">Bem Vindo ao My Bookshelf!</h2>
+                <h2 class="content__title">Bem Vindo ao My Bookshelf, <?= $username ?>!</h2>
 
                 <div class="dashboard">
                     <a href="../books/index.php" class="dashboard__item">Acesse seus livros</a>

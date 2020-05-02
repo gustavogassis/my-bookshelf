@@ -35,3 +35,9 @@
 .button--full {
     width: 100%;
 }
+
+.header__button {
+    margin-right: 15px;
+    position: absolute;
+    right: 0;
+}

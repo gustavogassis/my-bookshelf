@@ -2,6 +2,9 @@
 
     require_once "database-book.php";
     require_once "validation.php";
+    require_once "../login/check-login.php";
+
+    isLogged();
 
     $data = selectBookById($_POST["id"]);
 ?>
@@ -22,6 +25,9 @@
         <div class="container">
             <header class="header">
                 <h1 class="header__logo"><a href="../dashboard/index.php">My Bookshelf</a></h1>
+                <form action="../login/logout.php" method="post">
+                    <button class="button header__button">Logout</button>
+                </form>
             </header>
             <main class="content">
                 <h2 class="content__title"><?= $data["titulo"] ?></h2>
