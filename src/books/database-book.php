@@ -192,7 +192,7 @@ function selectPermittedGenres() {
 
     $sql = "SELECT id, nome FROM generos";
     $stmt = $conn->prepare($sql);
-    $flag = $stmt->execute();
+    $stmt->execute();
     $listIdGenres = [];
     $listGenres = [];
 
@@ -202,6 +202,17 @@ function selectPermittedGenres() {
         $listGenres[] = ["id" => $id, "genre" => utf8_encode($genre)];
     }
     return ["id" => $listIdGenres, "genre" => $listGenres];
+}
+
+function selectAllDistinctsAuthors() {
+    $conn = connect();
+
+    $sql = "SELECT DISTINCT nome FROM escritores";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+
+    return $result;
 }
 
 function deleteBook($id) {

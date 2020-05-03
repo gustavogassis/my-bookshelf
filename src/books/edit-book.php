@@ -25,7 +25,11 @@
         <link rel="stylesheet" href="../../css/reset.css" />
         <link rel="stylesheet" href="../../css/layout.css" />
         <link rel="stylesheet" href="../../css/button.css" />
+        <link rel="stylesheet" href="../../css/api.css" />
         <link rel="stylesheet" href="../../css/form.css" />
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script>
+        <script src="../../js/auto-complete.js"></script>
     </head>
     <body>
         <div class="container">
